@@ -1,4 +1,4 @@
-PROJECT_ROOT = /mnt/c/Users/Максим/Desktop/project-protos
+PROJECT_ROOT = /mnt/c/My-Project/project-protos
 PROTO_DIR = $(PROJECT_ROOT)/proto
 TASK_OUT_DIR = $(PROTO_DIR)/task
 USER_OUT_DIR = $(PROTO_DIR)/user
