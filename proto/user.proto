@@ -9,7 +9,6 @@ import "google/protobuf/empty.proto";
 message User {
   int64 id = 1;
   string email = 2;
-  string password = 3;
 }
 
 // === Запросы и ответы ===

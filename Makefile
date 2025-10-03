@@ -3,6 +3,7 @@ PROTO_DIR = $(PROJECT_ROOT)/proto
 TASK_OUT_DIR = $(PROTO_DIR)/task
 USER_OUT_DIR = $(PROTO_DIR)/user
 
+
 generate:
 	# Создаем папки для выходных файлов
 	mkdir -p "$(TASK_OUT_DIR)"
