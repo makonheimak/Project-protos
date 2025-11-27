@@ -20,12 +20,11 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_PostUser_FullMethodName        = "/user.UserService/PostUser"
-	UserService_GetAllUsers_FullMethodName     = "/user.UserService/GetAllUsers"
-	UserService_GetUserByID_FullMethodName     = "/user.UserService/GetUserByID"
-	UserService_GetTasksForUser_FullMethodName = "/user.UserService/GetTasksForUser"
-	UserService_PatchUserByID_FullMethodName   = "/user.UserService/PatchUserByID"
-	UserService_DeleteUserByID_FullMethodName  = "/user.UserService/DeleteUserByID"
+	UserService_PostUser_FullMethodName       = "/user.UserService/PostUser"
+	UserService_GetAllUsers_FullMethodName    = "/user.UserService/GetAllUsers"
+	UserService_GetUserByID_FullMethodName    = "/user.UserService/GetUserByID"
+	UserService_PatchUserByID_FullMethodName  = "/user.UserService/PatchUserByID"
+	UserService_DeleteUserByID_FullMethodName = "/user.UserService/DeleteUserByID"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -37,7 +36,6 @@ type UserServiceClient interface {
 	PostUser(ctx context.Context, in *PostUserRequest, opts ...grpc.CallOption) (*PostUserResponse, error)
 	GetAllUsers(ctx context.Context, in *GetAllUsersRequest, opts ...grpc.CallOption) (*GetAllUsersResponse, error)
 	GetUserByID(ctx context.Context, in *GetUserByIDRequest, opts ...grpc.CallOption) (*GetUserByIDResponse, error)
-	GetTasksForUser(ctx context.Context, in *GetTasksForUserRequest, opts ...grpc.CallOption) (*GetTasksForUserResponse, error)
 	PatchUserByID(ctx context.Context, in *PatchUserByIDRequest, opts ...grpc.CallOption) (*PatchUserByIDResponse, error)
 	DeleteUserByID(ctx context.Context, in *DeleteUserByIDRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -80,16 +78,6 @@ func (c *userServiceClient) GetUserByID(ctx context.Context, in *GetUserByIDRequ
 	return out, nil
 }
 
-func (c *userServiceClient) GetTasksForUser(ctx context.Context, in *GetTasksForUserRequest, opts ...grpc.CallOption) (*GetTasksForUserResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetTasksForUserResponse)
-	err := c.cc.Invoke(ctx, UserService_GetTasksForUser_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 func (c *userServiceClient) PatchUserByID(ctx context.Context, in *PatchUserByIDRequest, opts ...grpc.CallOption) (*PatchUserByIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PatchUserByIDResponse)
@@ -119,7 +107,6 @@ type UserServiceServer interface {
 	PostUser(context.Context, *PostUserRequest) (*PostUserResponse, error)
 	GetAllUsers(context.Context, *GetAllUsersRequest) (*GetAllUsersResponse, error)
 	GetUserByID(context.Context, *GetUserByIDRequest) (*GetUserByIDResponse, error)
-	GetTasksForUser(context.Context, *GetTasksForUserRequest) (*GetTasksForUserResponse, error)
 	PatchUserByID(context.Context, *PatchUserByIDRequest) (*PatchUserByIDResponse, error)
 	DeleteUserByID(context.Context, *DeleteUserByIDRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedUserServiceServer()
@@ -140,9 +127,6 @@ func (UnimplementedUserServiceServer) GetAllUsers(context.Context, *GetAllUsersR
 }
 func (UnimplementedUserServiceServer) GetUserByID(context.Context, *GetUserByIDRequest) (*GetUserByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetUserByID not implemented")
-}
-func (UnimplementedUserServiceServer) GetTasksForUser(context.Context, *GetTasksForUserRequest) (*GetTasksForUserResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetTasksForUser not implemented")
 }
 func (UnimplementedUserServiceServer) PatchUserByID(context.Context, *PatchUserByIDRequest) (*PatchUserByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PatchUserByID not implemented")
@@ -225,24 +209,6 @@ func _UserService_GetUserByID_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_GetTasksForUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetTasksForUserRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).GetTasksForUser(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_GetTasksForUser_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).GetTasksForUser(ctx, req.(*GetTasksForUserRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _UserService_PatchUserByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PatchUserByIDRequest)
 	if err := dec(in); err != nil {
@@ -297,10 +263,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetUserByID",
 			Handler:    _UserService_GetUserByID_Handler,
-		},
-		{
-			MethodName: "GetTasksForUser",
-			Handler:    _UserService_GetTasksForUser_Handler,
 		},
 		{
 			MethodName: "PatchUserByID",

@@ -1,27 +1,26 @@
 syntax = "proto3";
+
 package task;
 option go_package = "myproject/project-protos/proto/task";
 
 import "google/protobuf/empty.proto";
 
-// Сущность задача
 message Task {
   int64 id = 1;
   string task = 2;
-  int64 user_id = 3;
+  bool is_done = 3;
+  int64 user_id = 4;
 }
 
 message CreateTaskRequest {
   string task = 1;
   int64 user_id = 2;
 }
-
 message CreateTaskResponse {
   Task task = 1;
 }
 
 message GetAllTasksRequest {}
-
 message GetAllTasksResponse {
   repeated Task tasks = 1;
 }
@@ -29,17 +28,12 @@ message GetAllTasksResponse {
 message GetTaskByIDRequest {
   int64 id = 1;
 }
-
 message GetTaskByIDResponse {
   Task task = 1;
 }
 
 message GetTasksByUserIDRequest {
   int64 user_id = 1;
-}
-message User {
-  int64 id = 1;
-  string email = 2;
 }
 message GetTasksByUserIDResponse {
   repeated Task tasks = 1;
@@ -48,9 +42,9 @@ message GetTasksByUserIDResponse {
 message UpdateTaskRequest {
   int64 id = 1;
   string task = 2;
-  int64 user_id = 3;
+  bool is_done = 3;
+  int64 user_id = 4;
 }
-
 message UpdateTaskResponse {
   Task task = 1;
 }

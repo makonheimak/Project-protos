@@ -1,0 +1,35 @@
+syntax = "proto3";
+package analytics;
+option go_package = "myproject/project-protos/proto/analytics";
+
+import "google/protobuf/empty.proto";
+
+message TasksStatisticsResponse {
+  int64 total = 1;
+  int64 completed = 2;
+  int64 pending = 3;
+  double completion_percent = 4;
+}
+
+message ActiveUser {
+  int64 user_id = 1;
+  string email = 2;
+  int64 tasks_count = 3;
+}
+message TopActiveUsersResponse {
+  repeated ActiveUser users = 1;
+}
+
+message HourActivity {
+  int32 hour = 1;
+  int64 tasks_count = 2;
+}
+message TasksHourlyActivityResponse {
+  repeated HourActivity activity = 1;
+}
+
+service AnalyticsService {
+  rpc GetTasksStatistics (google.protobuf.Empty) returns (TasksStatisticsResponse);
+  rpc GetTopActiveUsers (google.protobuf.Empty) returns (TopActiveUsersResponse);
+  rpc GetTasksHourlyActivity (google.protobuf.Empty) returns (TasksHourlyActivityResponse);
+}

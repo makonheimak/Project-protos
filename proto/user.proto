@@ -36,19 +36,6 @@ message GetUserByIDResponse {
   User user = 1;
 }
 
-// GetTasksForUser
-message GetTasksForUserRequest {
-  int64 user_id = 1;
-}
-message Task {
-  int64 id = 1;
-  string task = 2;
-  int64 user_id = 3;
-}
-message GetTasksForUserResponse {
-  repeated Task tasks = 1;
-}
-
 // PatchUserByID
 message PatchUserByIDRequest {
   int64 id = 1;
@@ -69,7 +56,6 @@ service UserService {
   rpc PostUser (PostUserRequest) returns (PostUserResponse);
   rpc GetAllUsers (GetAllUsersRequest) returns (GetAllUsersResponse);
   rpc GetUserByID (GetUserByIDRequest) returns (GetUserByIDResponse);
-  rpc GetTasksForUser (GetTasksForUserRequest) returns (GetTasksForUserResponse);
   rpc PatchUserByID (PatchUserByIDRequest) returns (PatchUserByIDResponse);
   rpc DeleteUserByID (DeleteUserByIDRequest) returns (google.protobuf.Empty);
 }

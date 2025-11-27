@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package role;
+option go_package = "myproject/project-protos/proto/role";
+
+import "google/protobuf/empty.proto";
+
+message Role {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+}
+
+message PostRoleRequest {
+  Role role = 1;
+}
+message PostRoleResponse {
+  Role role = 1;
+}
+
+message GetAllRolesRequest {}
+message GetAllRolesResponse {
+  repeated Role roles = 1;
+}
+
+message GetRoleByIDRequest {
+  int64 id = 1;
+}
+message GetRoleByIDResponse {
+  Role role = 1;
+}
+
+message PatchRoleByIDRequest {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+}
+message PatchRoleByIDResponse {
+  Role role = 1;
+}
+
+message DeleteRoleByIDRequest {
+  int64 id = 1;
+}
+
+service RoleService {
+  rpc PostRole (PostRoleRequest) returns (PostRoleResponse);
+  rpc GetAllRoles (GetAllRolesRequest) returns (GetAllRolesResponse);
+  rpc GetRoleByID (GetRoleByIDRequest) returns (GetRoleByIDResponse);
+  rpc PatchRoleByID (PatchRoleByIDRequest) returns (PatchRoleByIDResponse);
+  rpc DeleteRoleByID (DeleteRoleByIDRequest) returns (google.protobuf.Empty);
+}
