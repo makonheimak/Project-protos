@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package task;
+option go_package = "myproject/project-protos/proto/task";
+
+import "google/protobuf/empty.proto";
+
+message Task {
+  int64 id = 1;
+  string task = 2;
+  bool is_done = 3;
+  int64 user_id = 4;
+}
+
+message CreateTaskRequest {
+  string task = 1;
+  int64 user_id = 2;
+}
+message CreateTaskResponse {
+  Task task = 1;
+}
+
+message GetAllTasksRequest {}
+message GetAllTasksResponse {
+  repeated Task tasks = 1;
+}
+
+message GetTaskByIDRequest {
+  int64 id = 1;
+}
+message GetTaskByIDResponse {
+  Task task = 1;
+}
+
+message GetTasksByUserIDRequest {
+  int64 user_id = 1;
+}
+message GetTasksByUserIDResponse {
+  repeated Task tasks = 1;
+}
+
+message UpdateTaskRequest {
+  int64 id = 1;
+  string task = 2;
+  bool is_done = 3;
+  int64 user_id = 4;
+}
+message UpdateTaskResponse {
+  Task task = 1;
+}
+
+message DeleteTaskRequest {
+  int64 id = 1;
+}
+
+service TaskService {
+  rpc CreateTask (CreateTaskRequest) returns (CreateTaskResponse);
+  rpc GetAllTasks (GetAllTasksRequest) returns (GetAllTasksResponse);
+  rpc GetTaskByID (GetTaskByIDRequest) returns (GetTaskByIDResponse);
+  rpc GetTasksByUserID (GetTasksByUserIDRequest) returns (GetTasksByUserIDResponse);
+  rpc UpdateTask (UpdateTaskRequest) returns (UpdateTaskResponse);
+  rpc DeleteTask (DeleteTaskRequest) returns (google.protobuf.Empty);
+}

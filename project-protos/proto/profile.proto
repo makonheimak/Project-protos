@@ -1,0 +1,57 @@
+syntax = "proto3";
+package profile;
+option go_package = "myproject/project-protos/proto/profile";
+
+import "google/protobuf/empty.proto";
+
+message Profile {
+  int64 id = 1;
+  int64 user_id = 2;
+  string full_name = 3;
+  string bio = 4;
+  string avatar_url = 5;
+}
+
+message PostProfileRequest {
+  int64 user_id = 1;
+  string full_name = 2;
+  string bio = 3;
+  string avatar_url = 4;
+}
+message PostProfileResponse {
+  Profile profile = 1;
+}
+
+message GetAllProfilesRequest {}
+message GetAllProfilesResponse {
+  repeated Profile profiles = 1;
+}
+
+message GetProfileByIDRequest {
+  int64 id = 1;
+}
+message GetProfileByIDResponse {
+  Profile profile = 1;
+}
+
+message PatchProfileByIDRequest {
+  int64 id = 1;
+  string full_name = 2;
+  string bio = 3;
+  string avatar_url = 4;
+}
+message PatchProfileByIDResponse {
+  Profile profile = 1;
+}
+
+message DeleteProfileByIDRequest {
+  int64 id = 1;
+}
+
+service ProfileService {
+  rpc PostProfile(PostProfileRequest) returns (PostProfileResponse);
+  rpc GetAllProfiles(GetAllProfilesRequest) returns (GetAllProfilesResponse);
+  rpc GetProfileByID(GetProfileByIDRequest) returns (GetProfileByIDResponse);
+  rpc PatchProfileByID(PatchProfileByIDRequest) returns (PatchProfileByIDResponse);
+  rpc DeleteProfileByID(DeleteProfileByIDRequest) returns (google.protobuf.Empty);
+}
