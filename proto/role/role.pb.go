@@ -84,7 +84,8 @@ func (x *Role) GetDescription() string {
 
 type PostRoleRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,2,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -119,11 +120,18 @@ func (*PostRoleRequest) Descriptor() ([]byte, []int) {
 	return file_role_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *PostRoleRequest) GetRole() *Role {
+func (x *PostRoleRequest) GetName() string {
 	if x != nil {
-		return x.Role
+		return x.Name
 	}
-	return nil
+	return ""
+}
+
+func (x *PostRoleRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
 }
 
 type PostRoleResponse struct {
@@ -495,10 +503,10 @@ const file_role_proto_rawDesc = "" +
 	"\x04Role\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\"1\n" +
-	"\x0fPostRoleRequest\x12\x1e\n" +
-	"\x04role\x18\x01 \x01(\v2\n" +
-	".role.RoleR\x04role\"2\n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\"G\n" +
+	"\x0fPostRoleRequest\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x02 \x01(\tR\vdescription\"2\n" +
 	"\x10PostRoleResponse\x12\x1e\n" +
 	"\x04role\x18\x01 \x01(\v2\n" +
 	".role.RoleR\x04role\"\x14\n" +
@@ -554,26 +562,25 @@ var file_role_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),         // 10: google.protobuf.Empty
 }
 var file_role_proto_depIdxs = []int32{
-	0,  // 0: role.PostRoleRequest.role:type_name -> role.Role
-	0,  // 1: role.PostRoleResponse.role:type_name -> role.Role
-	0,  // 2: role.GetAllRolesResponse.roles:type_name -> role.Role
-	0,  // 3: role.GetRoleByIDResponse.role:type_name -> role.Role
-	0,  // 4: role.PatchRoleByIDResponse.role:type_name -> role.Role
-	1,  // 5: role.RoleService.PostRole:input_type -> role.PostRoleRequest
-	3,  // 6: role.RoleService.GetAllRoles:input_type -> role.GetAllRolesRequest
-	5,  // 7: role.RoleService.GetRoleByID:input_type -> role.GetRoleByIDRequest
-	7,  // 8: role.RoleService.PatchRoleByID:input_type -> role.PatchRoleByIDRequest
-	9,  // 9: role.RoleService.DeleteRoleByID:input_type -> role.DeleteRoleByIDRequest
-	2,  // 10: role.RoleService.PostRole:output_type -> role.PostRoleResponse
-	4,  // 11: role.RoleService.GetAllRoles:output_type -> role.GetAllRolesResponse
-	6,  // 12: role.RoleService.GetRoleByID:output_type -> role.GetRoleByIDResponse
-	8,  // 13: role.RoleService.PatchRoleByID:output_type -> role.PatchRoleByIDResponse
-	10, // 14: role.RoleService.DeleteRoleByID:output_type -> google.protobuf.Empty
-	10, // [10:15] is the sub-list for method output_type
-	5,  // [5:10] is the sub-list for method input_type
-	5,  // [5:5] is the sub-list for extension type_name
-	5,  // [5:5] is the sub-list for extension extendee
-	0,  // [0:5] is the sub-list for field type_name
+	0,  // 0: role.PostRoleResponse.role:type_name -> role.Role
+	0,  // 1: role.GetAllRolesResponse.roles:type_name -> role.Role
+	0,  // 2: role.GetRoleByIDResponse.role:type_name -> role.Role
+	0,  // 3: role.PatchRoleByIDResponse.role:type_name -> role.Role
+	1,  // 4: role.RoleService.PostRole:input_type -> role.PostRoleRequest
+	3,  // 5: role.RoleService.GetAllRoles:input_type -> role.GetAllRolesRequest
+	5,  // 6: role.RoleService.GetRoleByID:input_type -> role.GetRoleByIDRequest
+	7,  // 7: role.RoleService.PatchRoleByID:input_type -> role.PatchRoleByIDRequest
+	9,  // 8: role.RoleService.DeleteRoleByID:input_type -> role.DeleteRoleByIDRequest
+	2,  // 9: role.RoleService.PostRole:output_type -> role.PostRoleResponse
+	4,  // 10: role.RoleService.GetAllRoles:output_type -> role.GetAllRolesResponse
+	6,  // 11: role.RoleService.GetRoleByID:output_type -> role.GetRoleByIDResponse
+	8,  // 12: role.RoleService.PatchRoleByID:output_type -> role.PatchRoleByIDResponse
+	10, // 13: role.RoleService.DeleteRoleByID:output_type -> google.protobuf.Empty
+	9,  // [9:14] is the sub-list for method output_type
+	4,  // [4:9] is the sub-list for method input_type
+	4,  // [4:4] is the sub-list for extension type_name
+	4,  // [4:4] is the sub-list for extension extendee
+	0,  // [0:4] is the sub-list for field type_name
 }
 
 func init() { file_role_proto_init() }

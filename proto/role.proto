@@ -12,7 +12,8 @@ message Role {
 }
 
 message PostRoleRequest {
-  Role role = 1;
+  string name = 1;
+  string description = 2;
 }
 message PostRoleResponse {
   Role role = 1;
