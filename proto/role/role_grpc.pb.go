@@ -20,11 +20,12 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	RoleService_PostRole_FullMethodName       = "/role.RoleService/PostRole"
-	RoleService_GetAllRoles_FullMethodName    = "/role.RoleService/GetAllRoles"
-	RoleService_GetRoleByID_FullMethodName    = "/role.RoleService/GetRoleByID"
-	RoleService_PatchRoleByID_FullMethodName  = "/role.RoleService/PatchRoleByID"
-	RoleService_DeleteRoleByID_FullMethodName = "/role.RoleService/DeleteRoleByID"
+	RoleService_PostRole_FullMethodName         = "/role.RoleService/PostRole"
+	RoleService_GetAllRoles_FullMethodName      = "/role.RoleService/GetAllRoles"
+	RoleService_GetRoleByID_FullMethodName      = "/role.RoleService/GetRoleByID"
+	RoleService_GetRolesByUserID_FullMethodName = "/role.RoleService/GetRolesByUserID"
+	RoleService_PatchRoleByID_FullMethodName    = "/role.RoleService/PatchRoleByID"
+	RoleService_DeleteRoleByID_FullMethodName   = "/role.RoleService/DeleteRoleByID"
 )
 
 // RoleServiceClient is the client API for RoleService service.
@@ -34,6 +35,7 @@ type RoleServiceClient interface {
 	PostRole(ctx context.Context, in *PostRoleRequest, opts ...grpc.CallOption) (*PostRoleResponse, error)
 	GetAllRoles(ctx context.Context, in *GetAllRolesRequest, opts ...grpc.CallOption) (*GetAllRolesResponse, error)
 	GetRoleByID(ctx context.Context, in *GetRoleByIDRequest, opts ...grpc.CallOption) (*GetRoleByIDResponse, error)
+	GetRolesByUserID(ctx context.Context, in *GetRolesByUserIDRequest, opts ...grpc.CallOption) (*GetRolesByUserIDResponse, error)
 	PatchRoleByID(ctx context.Context, in *PatchRoleByIDRequest, opts ...grpc.CallOption) (*PatchRoleByIDResponse, error)
 	DeleteRoleByID(ctx context.Context, in *DeleteRoleByIDRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
@@ -76,6 +78,16 @@ func (c *roleServiceClient) GetRoleByID(ctx context.Context, in *GetRoleByIDRequ
 	return out, nil
 }
 
+func (c *roleServiceClient) GetRolesByUserID(ctx context.Context, in *GetRolesByUserIDRequest, opts ...grpc.CallOption) (*GetRolesByUserIDResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetRolesByUserIDResponse)
+	err := c.cc.Invoke(ctx, RoleService_GetRolesByUserID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *roleServiceClient) PatchRoleByID(ctx context.Context, in *PatchRoleByIDRequest, opts ...grpc.CallOption) (*PatchRoleByIDResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(PatchRoleByIDResponse)
@@ -103,6 +115,7 @@ type RoleServiceServer interface {
 	PostRole(context.Context, *PostRoleRequest) (*PostRoleResponse, error)
 	GetAllRoles(context.Context, *GetAllRolesRequest) (*GetAllRolesResponse, error)
 	GetRoleByID(context.Context, *GetRoleByIDRequest) (*GetRoleByIDResponse, error)
+	GetRolesByUserID(context.Context, *GetRolesByUserIDRequest) (*GetRolesByUserIDResponse, error)
 	PatchRoleByID(context.Context, *PatchRoleByIDRequest) (*PatchRoleByIDResponse, error)
 	DeleteRoleByID(context.Context, *DeleteRoleByIDRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedRoleServiceServer()
@@ -123,6 +136,9 @@ func (UnimplementedRoleServiceServer) GetAllRoles(context.Context, *GetAllRolesR
 }
 func (UnimplementedRoleServiceServer) GetRoleByID(context.Context, *GetRoleByIDRequest) (*GetRoleByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetRoleByID not implemented")
+}
+func (UnimplementedRoleServiceServer) GetRolesByUserID(context.Context, *GetRolesByUserIDRequest) (*GetRolesByUserIDResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetRolesByUserID not implemented")
 }
 func (UnimplementedRoleServiceServer) PatchRoleByID(context.Context, *PatchRoleByIDRequest) (*PatchRoleByIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method PatchRoleByID not implemented")
@@ -205,6 +221,24 @@ func _RoleService_GetRoleByID_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _RoleService_GetRolesByUserID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetRolesByUserIDRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(RoleServiceServer).GetRolesByUserID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: RoleService_GetRolesByUserID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(RoleServiceServer).GetRolesByUserID(ctx, req.(*GetRolesByUserIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _RoleService_PatchRoleByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(PatchRoleByIDRequest)
 	if err := dec(in); err != nil {
@@ -259,6 +293,10 @@ var RoleService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetRoleByID",
 			Handler:    _RoleService_GetRoleByID_Handler,
+		},
+		{
+			MethodName: "GetRolesByUserID",
+			Handler:    _RoleService_GetRolesByUserID_Handler,
 		},
 		{
 			MethodName: "PatchRoleByID",

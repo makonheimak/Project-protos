@@ -7,12 +7,15 @@ import "google/protobuf/empty.proto";
 
 message Role {
   int64 id = 1;
-  string name = 2;
-  string description = 3;
+  int64 user_id = 2;
+  string name = 3;
+  string description = 4;
 }
 
 message PostRoleRequest {
-  Role role = 1;
+  int64 user_id = 1;
+  string name = 2;
+  string description = 3;
 }
 message PostRoleResponse {
   Role role = 1;
@@ -30,10 +33,18 @@ message GetRoleByIDResponse {
   Role role = 1;
 }
 
+message GetRolesByUserIDRequest {
+  int64 user_id = 1;
+}
+message GetRolesByUserIDResponse {
+  repeated Role roles = 1;
+}
+
 message PatchRoleByIDRequest {
   int64 id = 1;
-  string name = 2;
-  string description = 3;
+  int64 user_id = 2;
+  string name = 3;
+  string description = 4;
 }
 message PatchRoleByIDResponse {
   Role role = 1;
@@ -47,6 +58,7 @@ service RoleService {
   rpc PostRole (PostRoleRequest) returns (PostRoleResponse);
   rpc GetAllRoles (GetAllRolesRequest) returns (GetAllRolesResponse);
   rpc GetRoleByID (GetRoleByIDRequest) returns (GetRoleByIDResponse);
+  rpc GetRolesByUserID (GetRolesByUserIDRequest) returns (GetRolesByUserIDResponse);
   rpc PatchRoleByID (PatchRoleByIDRequest) returns (PatchRoleByIDResponse);
   rpc DeleteRoleByID (DeleteRoleByIDRequest) returns (google.protobuf.Empty);
 }

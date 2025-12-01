@@ -25,8 +25,9 @@ const (
 type Role struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -68,6 +69,13 @@ func (x *Role) GetId() int64 {
 	return 0
 }
 
+func (x *Role) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
 func (x *Role) GetName() string {
 	if x != nil {
 		return x.Name
@@ -84,7 +92,9 @@ func (x *Role) GetDescription() string {
 
 type PostRoleRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Role          *Role                  `protobuf:"bytes,1,opt,name=role,proto3" json:"role,omitempty"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -119,11 +129,25 @@ func (*PostRoleRequest) Descriptor() ([]byte, []int) {
 	return file_role_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *PostRoleRequest) GetRole() *Role {
+func (x *PostRoleRequest) GetUserId() int64 {
 	if x != nil {
-		return x.Role
+		return x.UserId
 	}
-	return nil
+	return 0
+}
+
+func (x *PostRoleRequest) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *PostRoleRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
 }
 
 type PostRoleResponse struct {
@@ -338,18 +362,107 @@ func (x *GetRoleByIDResponse) GetRole() *Role {
 	return nil
 }
 
+type GetRolesByUserIDRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	UserId        int64                  `protobuf:"varint,1,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRolesByUserIDRequest) Reset() {
+	*x = GetRolesByUserIDRequest{}
+	mi := &file_role_proto_msgTypes[7]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRolesByUserIDRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRolesByUserIDRequest) ProtoMessage() {}
+
+func (x *GetRolesByUserIDRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_role_proto_msgTypes[7]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRolesByUserIDRequest.ProtoReflect.Descriptor instead.
+func (*GetRolesByUserIDRequest) Descriptor() ([]byte, []int) {
+	return file_role_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *GetRolesByUserIDRequest) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
+	}
+	return 0
+}
+
+type GetRolesByUserIDResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Roles         []*Role                `protobuf:"bytes,1,rep,name=roles,proto3" json:"roles,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetRolesByUserIDResponse) Reset() {
+	*x = GetRolesByUserIDResponse{}
+	mi := &file_role_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetRolesByUserIDResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetRolesByUserIDResponse) ProtoMessage() {}
+
+func (x *GetRolesByUserIDResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_role_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetRolesByUserIDResponse.ProtoReflect.Descriptor instead.
+func (*GetRolesByUserIDResponse) Descriptor() ([]byte, []int) {
+	return file_role_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *GetRolesByUserIDResponse) GetRoles() []*Role {
+	if x != nil {
+		return x.Roles
+	}
+	return nil
+}
+
 type PatchRoleByIDRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name          string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Description   string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	UserId        int64                  `protobuf:"varint,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Description   string                 `protobuf:"bytes,4,opt,name=description,proto3" json:"description,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *PatchRoleByIDRequest) Reset() {
 	*x = PatchRoleByIDRequest{}
-	mi := &file_role_proto_msgTypes[7]
+	mi := &file_role_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -361,7 +474,7 @@ func (x *PatchRoleByIDRequest) String() string {
 func (*PatchRoleByIDRequest) ProtoMessage() {}
 
 func (x *PatchRoleByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_role_proto_msgTypes[7]
+	mi := &file_role_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -374,12 +487,19 @@ func (x *PatchRoleByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PatchRoleByIDRequest.ProtoReflect.Descriptor instead.
 func (*PatchRoleByIDRequest) Descriptor() ([]byte, []int) {
-	return file_role_proto_rawDescGZIP(), []int{7}
+	return file_role_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *PatchRoleByIDRequest) GetId() int64 {
 	if x != nil {
 		return x.Id
+	}
+	return 0
+}
+
+func (x *PatchRoleByIDRequest) GetUserId() int64 {
+	if x != nil {
+		return x.UserId
 	}
 	return 0
 }
@@ -407,7 +527,7 @@ type PatchRoleByIDResponse struct {
 
 func (x *PatchRoleByIDResponse) Reset() {
 	*x = PatchRoleByIDResponse{}
-	mi := &file_role_proto_msgTypes[8]
+	mi := &file_role_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -419,7 +539,7 @@ func (x *PatchRoleByIDResponse) String() string {
 func (*PatchRoleByIDResponse) ProtoMessage() {}
 
 func (x *PatchRoleByIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_role_proto_msgTypes[8]
+	mi := &file_role_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -432,7 +552,7 @@ func (x *PatchRoleByIDResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use PatchRoleByIDResponse.ProtoReflect.Descriptor instead.
 func (*PatchRoleByIDResponse) Descriptor() ([]byte, []int) {
-	return file_role_proto_rawDescGZIP(), []int{8}
+	return file_role_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *PatchRoleByIDResponse) GetRole() *Role {
@@ -451,7 +571,7 @@ type DeleteRoleByIDRequest struct {
 
 func (x *DeleteRoleByIDRequest) Reset() {
 	*x = DeleteRoleByIDRequest{}
-	mi := &file_role_proto_msgTypes[9]
+	mi := &file_role_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -463,7 +583,7 @@ func (x *DeleteRoleByIDRequest) String() string {
 func (*DeleteRoleByIDRequest) ProtoMessage() {}
 
 func (x *DeleteRoleByIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_role_proto_msgTypes[9]
+	mi := &file_role_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -476,7 +596,7 @@ func (x *DeleteRoleByIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteRoleByIDRequest.ProtoReflect.Descriptor instead.
 func (*DeleteRoleByIDRequest) Descriptor() ([]byte, []int) {
-	return file_role_proto_rawDescGZIP(), []int{9}
+	return file_role_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *DeleteRoleByIDRequest) GetId() int64 {
@@ -491,14 +611,16 @@ var File_role_proto protoreflect.FileDescriptor
 const file_role_proto_rawDesc = "" +
 	"\n" +
 	"\n" +
-	"role.proto\x12\x04role\x1a\x1bgoogle/protobuf/empty.proto\"L\n" +
+	"role.proto\x12\x04role\x1a\x1bgoogle/protobuf/empty.proto\"e\n" +
 	"\x04Role\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\"`\n" +
+	"\x0fPostRoleRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\"1\n" +
-	"\x0fPostRoleRequest\x12\x1e\n" +
-	"\x04role\x18\x01 \x01(\v2\n" +
-	".role.RoleR\x04role\"2\n" +
+	"\vdescription\x18\x03 \x01(\tR\vdescription\"2\n" +
 	"\x10PostRoleResponse\x12\x1e\n" +
 	"\x04role\x18\x01 \x01(\v2\n" +
 	".role.RoleR\x04role\"\x14\n" +
@@ -510,20 +632,27 @@ const file_role_proto_rawDesc = "" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\"5\n" +
 	"\x13GetRoleByIDResponse\x12\x1e\n" +
 	"\x04role\x18\x01 \x01(\v2\n" +
-	".role.RoleR\x04role\"\\\n" +
+	".role.RoleR\x04role\"2\n" +
+	"\x17GetRolesByUserIDRequest\x12\x17\n" +
+	"\auser_id\x18\x01 \x01(\x03R\x06userId\"<\n" +
+	"\x18GetRolesByUserIDResponse\x12 \n" +
+	"\x05roles\x18\x01 \x03(\v2\n" +
+	".role.RoleR\x05roles\"u\n" +
 	"\x14PatchRoleByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
-	"\x04name\x18\x02 \x01(\tR\x04name\x12 \n" +
-	"\vdescription\x18\x03 \x01(\tR\vdescription\"7\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x17\n" +
+	"\auser_id\x18\x02 \x01(\x03R\x06userId\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12 \n" +
+	"\vdescription\x18\x04 \x01(\tR\vdescription\"7\n" +
 	"\x15PatchRoleByIDResponse\x12\x1e\n" +
 	"\x04role\x18\x01 \x01(\v2\n" +
 	".role.RoleR\x04role\"'\n" +
 	"\x15DeleteRoleByIDRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\x03R\x02id2\xe1\x02\n" +
+	"\x02id\x18\x01 \x01(\x03R\x02id2\xb4\x03\n" +
 	"\vRoleService\x129\n" +
 	"\bPostRole\x12\x15.role.PostRoleRequest\x1a\x16.role.PostRoleResponse\x12B\n" +
 	"\vGetAllRoles\x12\x18.role.GetAllRolesRequest\x1a\x19.role.GetAllRolesResponse\x12B\n" +
-	"\vGetRoleByID\x12\x18.role.GetRoleByIDRequest\x1a\x19.role.GetRoleByIDResponse\x12H\n" +
+	"\vGetRoleByID\x12\x18.role.GetRoleByIDRequest\x1a\x19.role.GetRoleByIDResponse\x12Q\n" +
+	"\x10GetRolesByUserID\x12\x1d.role.GetRolesByUserIDRequest\x1a\x1e.role.GetRolesByUserIDResponse\x12H\n" +
 	"\rPatchRoleByID\x12\x1a.role.PatchRoleByIDRequest\x1a\x1b.role.PatchRoleByIDResponse\x12E\n" +
 	"\x0eDeleteRoleByID\x12\x1b.role.DeleteRoleByIDRequest\x1a\x16.google.protobuf.EmptyB%Z#myproject/project-protos/proto/roleb\x06proto3"
 
@@ -539,38 +668,42 @@ func file_role_proto_rawDescGZIP() []byte {
 	return file_role_proto_rawDescData
 }
 
-var file_role_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
+var file_role_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
 var file_role_proto_goTypes = []any{
-	(*Role)(nil),                  // 0: role.Role
-	(*PostRoleRequest)(nil),       // 1: role.PostRoleRequest
-	(*PostRoleResponse)(nil),      // 2: role.PostRoleResponse
-	(*GetAllRolesRequest)(nil),    // 3: role.GetAllRolesRequest
-	(*GetAllRolesResponse)(nil),   // 4: role.GetAllRolesResponse
-	(*GetRoleByIDRequest)(nil),    // 5: role.GetRoleByIDRequest
-	(*GetRoleByIDResponse)(nil),   // 6: role.GetRoleByIDResponse
-	(*PatchRoleByIDRequest)(nil),  // 7: role.PatchRoleByIDRequest
-	(*PatchRoleByIDResponse)(nil), // 8: role.PatchRoleByIDResponse
-	(*DeleteRoleByIDRequest)(nil), // 9: role.DeleteRoleByIDRequest
-	(*emptypb.Empty)(nil),         // 10: google.protobuf.Empty
+	(*Role)(nil),                     // 0: role.Role
+	(*PostRoleRequest)(nil),          // 1: role.PostRoleRequest
+	(*PostRoleResponse)(nil),         // 2: role.PostRoleResponse
+	(*GetAllRolesRequest)(nil),       // 3: role.GetAllRolesRequest
+	(*GetAllRolesResponse)(nil),      // 4: role.GetAllRolesResponse
+	(*GetRoleByIDRequest)(nil),       // 5: role.GetRoleByIDRequest
+	(*GetRoleByIDResponse)(nil),      // 6: role.GetRoleByIDResponse
+	(*GetRolesByUserIDRequest)(nil),  // 7: role.GetRolesByUserIDRequest
+	(*GetRolesByUserIDResponse)(nil), // 8: role.GetRolesByUserIDResponse
+	(*PatchRoleByIDRequest)(nil),     // 9: role.PatchRoleByIDRequest
+	(*PatchRoleByIDResponse)(nil),    // 10: role.PatchRoleByIDResponse
+	(*DeleteRoleByIDRequest)(nil),    // 11: role.DeleteRoleByIDRequest
+	(*emptypb.Empty)(nil),            // 12: google.protobuf.Empty
 }
 var file_role_proto_depIdxs = []int32{
-	0,  // 0: role.PostRoleRequest.role:type_name -> role.Role
-	0,  // 1: role.PostRoleResponse.role:type_name -> role.Role
-	0,  // 2: role.GetAllRolesResponse.roles:type_name -> role.Role
-	0,  // 3: role.GetRoleByIDResponse.role:type_name -> role.Role
+	0,  // 0: role.PostRoleResponse.role:type_name -> role.Role
+	0,  // 1: role.GetAllRolesResponse.roles:type_name -> role.Role
+	0,  // 2: role.GetRoleByIDResponse.role:type_name -> role.Role
+	0,  // 3: role.GetRolesByUserIDResponse.roles:type_name -> role.Role
 	0,  // 4: role.PatchRoleByIDResponse.role:type_name -> role.Role
 	1,  // 5: role.RoleService.PostRole:input_type -> role.PostRoleRequest
 	3,  // 6: role.RoleService.GetAllRoles:input_type -> role.GetAllRolesRequest
 	5,  // 7: role.RoleService.GetRoleByID:input_type -> role.GetRoleByIDRequest
-	7,  // 8: role.RoleService.PatchRoleByID:input_type -> role.PatchRoleByIDRequest
-	9,  // 9: role.RoleService.DeleteRoleByID:input_type -> role.DeleteRoleByIDRequest
-	2,  // 10: role.RoleService.PostRole:output_type -> role.PostRoleResponse
-	4,  // 11: role.RoleService.GetAllRoles:output_type -> role.GetAllRolesResponse
-	6,  // 12: role.RoleService.GetRoleByID:output_type -> role.GetRoleByIDResponse
-	8,  // 13: role.RoleService.PatchRoleByID:output_type -> role.PatchRoleByIDResponse
-	10, // 14: role.RoleService.DeleteRoleByID:output_type -> google.protobuf.Empty
-	10, // [10:15] is the sub-list for method output_type
-	5,  // [5:10] is the sub-list for method input_type
+	7,  // 8: role.RoleService.GetRolesByUserID:input_type -> role.GetRolesByUserIDRequest
+	9,  // 9: role.RoleService.PatchRoleByID:input_type -> role.PatchRoleByIDRequest
+	11, // 10: role.RoleService.DeleteRoleByID:input_type -> role.DeleteRoleByIDRequest
+	2,  // 11: role.RoleService.PostRole:output_type -> role.PostRoleResponse
+	4,  // 12: role.RoleService.GetAllRoles:output_type -> role.GetAllRolesResponse
+	6,  // 13: role.RoleService.GetRoleByID:output_type -> role.GetRoleByIDResponse
+	8,  // 14: role.RoleService.GetRolesByUserID:output_type -> role.GetRolesByUserIDResponse
+	10, // 15: role.RoleService.PatchRoleByID:output_type -> role.PatchRoleByIDResponse
+	12, // 16: role.RoleService.DeleteRoleByID:output_type -> google.protobuf.Empty
+	11, // [11:17] is the sub-list for method output_type
+	5,  // [5:11] is the sub-list for method input_type
 	5,  // [5:5] is the sub-list for extension type_name
 	5,  // [5:5] is the sub-list for extension extendee
 	0,  // [0:5] is the sub-list for field type_name
@@ -587,7 +720,7 @@ func file_role_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_role_proto_rawDesc), len(file_role_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   10,
+			NumMessages:   12,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
